@@ -30,14 +30,15 @@ class EloSystem_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-		/*makeTableDuelos();
-		makeTableJuegos();
-		makeTablePartidas();
-		makeTablePlayers();
-		makeTableReportes();*/
+		makeTableELDuelos();
+		makeTableELJuegos();
+		makeTableELPartidas();
+		makeTableELPlayers();
+		makeTableELReportes();
 	}
-	
-	function makeTableDuelos() {
+
+}
+function makeTableELDuelos() {
 		global $wpdb;
 		$table_name = $wpdb->prefix."elduelos"; 
 		$charset_collate = $wpdb->get_charset_collate();
@@ -58,7 +59,7 @@ class EloSystem_Activator {
 		dbDelta( $sql );
 	}
 	
-	function makeTableJuegos() {
+	function makeTableELJuegos() {
 		global $wpdb;
 		$table_name = $wpdb->prefix."eljuegos"; 
 		$charset_collate = $wpdb->get_charset_collate();
@@ -72,7 +73,7 @@ class EloSystem_Activator {
 		dbDelta( $sql );
 	}
 	
-	function makeTablePartidas() {
+	function makeTableELPartidas() {
 		global $wpdb;
 		$table_name = $wpdb->prefix."elpartidas"; 
 		$charset_collate = $wpdb->get_charset_collate();
@@ -90,7 +91,7 @@ class EloSystem_Activator {
 		dbDelta( $sql );
 	}
 	
-	function makeTablePlayers() {
+	function makeTableELPlayers() {
 		global $wpdb;
 		$table_name = $wpdb->prefix."elplayers"; 
 		$charset_collate = $wpdb->get_charset_collate();
@@ -108,7 +109,7 @@ class EloSystem_Activator {
 		dbDelta( $sql );
 	}
 	
-	function makeTableReportes() {
+	function makeTableELReportes() {
 		global $wpdb;
 		$table_name = $wpdb->prefix."elreportes"; 
 		$charset_collate = $wpdb->get_charset_collate();
@@ -124,5 +125,3 @@ class EloSystem_Activator {
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( $sql );
 	}
-
-}
