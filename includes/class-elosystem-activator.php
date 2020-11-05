@@ -35,6 +35,8 @@ class EloSystem_Activator {
 		makeTableELPartidas();
 		makeTableELPlayers();
 		makeTableELReportes();
+
+		createPostTypeMatch();
 	}
 
 }
@@ -124,4 +126,18 @@ function makeTableELReportes() {
 
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	dbDelta( $sql );
+}
+
+function createPostTypeMatch() {
+	$args = array(
+		'labels' => array(
+			'name' => __( 'Match' ),
+			'singular_name' => __( 'Match' )
+		),
+		'rewrite' => array( 'slug' => 'Matches' ),
+		'public' => true,
+		'show_in_rest' => true,
+		'supports' => array( 'editor','thumbnail','title','custom-fields','comments'),
+	);
+	register_post_type( 'match', $args );
 }

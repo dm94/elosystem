@@ -27,9 +27,9 @@ class EloSystem_Admin {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string    $Elo_Ranking    The ID of this plugin.
 	 */
-	private $plugin_name;
+	private $Elo_Ranking;
 
 	/**
 	 * The version of this plugin.
@@ -44,14 +44,23 @@ class EloSystem_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
+	 * @param      string    $Elo_Ranking       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct( $Elo_Ranking, $version ) {
 
-		$this->plugin_name = $plugin_name;
+		$this->Elo_Ranking = $Elo_Ranking;
 		$this->version = $version;
-
+	}
+	
+	/**
+	 * Register the Settings page.
+	 *
+	 * @since    1.0.0
+	 */
+	public function elosystem_admin_menu() {
+		add_menu_page(__('EloSystem', $this->Elo_Ranking),__('Gestión de partidas', $this->Elo_Ranking), 'manage_options', 'el_admin_submenu1',array($this, 'display_adp_gpartidas'),'dashicons-admin-generic');
+		add_submenu_page ( 'el_admin_submenu1', __('Gestión de reportes', $this->Elo_Ranking), __('Gestión de reportes', $this->Elo_Ranking), 'manage_options', 'el_admin_submenu2', array($this, 'display_adp_greportes'));
 	}
 
 	/**
@@ -73,7 +82,8 @@ class EloSystem_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/elosystem-admin.css', array(), $this->version, 'all' );
+		//wp_enqueue_style( $this->Elo_Ranking, plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->Elo_Ranking, plugin_dir_url( __FILE__ ) . 'css/sb-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -96,8 +106,14 @@ class EloSystem_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/elosystem-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->Elo_Ranking, plugin_dir_url( __FILE__ ) . 'js/elosystem-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
-
+	
+	public function display_adp_gpartidas() {
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/elosys-adp-gpartidas.php';
+	}
+	public function display_adp_greportes() {
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/elosys-adp-greportes.php';
+	}
 }

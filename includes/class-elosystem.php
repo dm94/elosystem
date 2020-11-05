@@ -44,9 +44,9 @@ class EloSystem {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
+	 * @var      string    $Elo_Ranking    The string used to uniquely identify this plugin.
 	 */
-	protected $plugin_name;
+	protected $Elo_Ranking;
 
 	/**
 	 * The current version of the plugin.
@@ -72,7 +72,7 @@ class EloSystem {
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'elosystem';
+		$this->Elo_Ranking = 'elosystem';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -156,6 +156,7 @@ class EloSystem {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'elosystem_admin_menu' );
 
 	}
 
@@ -192,7 +193,7 @@ class EloSystem {
 	 * @return    string    The name of the plugin.
 	 */
 	public function get_plugin_name() {
-		return $this->plugin_name;
+		return $this->Elo_Ranking;
 	}
 
 	/**

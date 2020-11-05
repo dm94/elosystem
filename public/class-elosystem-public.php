@@ -27,9 +27,9 @@ class EloSystem_Public {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string    $Elo_Ranking    The ID of this plugin.
 	 */
-	private $plugin_name;
+	private $Elo_Ranking;
 
 	/**
 	 * The version of this plugin.
@@ -44,12 +44,12 @@ class EloSystem_Public {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
+	 * @param      string    $Elo_Ranking       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct( $Elo_Ranking, $version ) {
 
-		$this->plugin_name = $plugin_name;
+		$this->Elo_Ranking = $Elo_Ranking;
 		$this->version = $version;
 
 	}
@@ -72,8 +72,7 @@ class EloSystem_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/elosystem-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->Elo_Ranking, plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array(), $this->version, 'all' );
 
 	}
 
@@ -96,8 +95,36 @@ class EloSystem_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/elosystem-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->Elo_Ranking, plugin_dir_url( __FILE__ ) . 'js/elosystem-public.js', array( 'jquery' ), $this->version, false );
 
 	}
-
 }
+
+	/**
+	 * Custom Post Type: Matches
+	 */
+
+	add_action( 'init', 'make_ctp_matches' );
+	function make_ctp_matches() {
+		$args = array(
+			'labels' => array(
+				'name' => __( 'Matches' ),
+				'singular_name' => __( 'Match' )
+			),
+			'rewrite' => array( 'slug' => 'matches' ),
+			'public' => true,
+			'show_in_rest' => true,
+			'supports' => array( 'thumbnail','title','custom-fields','comments'),
+		);
+		register_post_type( 'matches', $args );
+	}
+
+	function load_customs_template_el( $template ) {
+		global $post;
+		if ( 'matches' == $post->post_type && locate_template( array( 'single-matches.php' ) ) != $template ) {
+			return plugin_dir_path( __FILE__ ) . 'single-matches.php';
+		}
+		return $template;
+	}
+	
+	add_filter( 'single_template', 'load_customs_template_el' );

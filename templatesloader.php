@@ -71,7 +71,6 @@ class TemplatesLoader {
 
 		// Add your templates to this array.
 		$this->templates = array(
-			'./templates/elosys-adp-gpartidas.php' => 'EloSys-ADPanel-GestionPartidas',
 			'./templates/elosys-adp-greportes.php' => 'EloSys-ADPanel-GestionReportes',
 			'./templates/elosys-adp-gusuarios.php' => 'EloSys-ADPanel-GestionUsuarios',
 			'./templates/elosys-clasi.php' => 'EloSys-Clasificacion',
