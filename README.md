@@ -1,3 +1,5 @@
+# This plugin is outdated and the code needs a lot of improvements.
+
 # elosystem
  Elo Plugin for wordpress
 
